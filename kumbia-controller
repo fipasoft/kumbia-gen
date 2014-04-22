@@ -16,7 +16,7 @@ echo "<?php
  * $controlador
  *
  * @package    Controladores
- * @author     mimeks <mimex@fipasoft.com.mx>
+ * @author     FiPa Software <contacto@fipasoft.com.mx>
  * @copyright  `date +%Y` FiPa Software (contacto at fipasoft.com.mx)
  * @license    http://www.gnu.org/licenses/gpl.html  GNU General Public License (GPL)
  *

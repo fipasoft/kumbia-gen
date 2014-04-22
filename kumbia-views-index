@@ -88,3 +88,9 @@ echo "<div class=\"pages\">
 </div>
 </div>" > $PWD/views/$controlador/_index_paginador.phtml
 
+touch $PWD/views/$controlador/_index_vacio.phtml
+chmod 0770 $PWD/views/$controlador/_index_vacio.phtml
+echo "<div class=\"info\">
+    <br />
+    No hay registros que mostrar
+</div>" > $PWD/views/$controlador/_index_vacio.phtml

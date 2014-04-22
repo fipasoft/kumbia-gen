@@ -74,3 +74,17 @@ echo "<div id=\"options\">
         </form>
     </div>
 </div>" > $PWD/views/$controlador/_index_search.phtml
+
+touch $PWD/views/$controlador/_index_paginador.phtml
+chmod 0770 $PWD/views/$controlador/_index_paginador.phtml
+echo "<div class=\"pages\">
+    <?php /*foreach( \$paginador->botones() as \$boton ){ ?>
+         <a  href=\"<?php echo \$path . \$boton->url() ?>\"
+            title=\"Ir a la p&aacute;gina <?php echo \$boton->titulo() ?>\"
+            class=\"<?php echo \$boton->estilo() ?>\">
+            <?php echo \$boton->etiqueta() ?>
+        </a>
+    <?php }*/ ?>
+</div>
+</div>" > $PWD/views/$controlador/_index_paginador.phtml
+

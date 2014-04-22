@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Valida parametros
+if [ -z $1 ]
+then
+    echo 'Especifique controlador'
+    exit 1;
+fi
+
+# Inicializa
+controlador=$1
+vista=`echo $1 | cut -d "/" -f 2`;
+
+# Crea el directorio
+if [ ! -d $PWD/views/$controlador ]
+then
+    mkdir -p $PWD/views/$controlador;
+fi
+
+touch $PWD/views/$controlador/index.phtml
+chmod 0770 $PWD/views/$controlador/index.phtml
+echo "<div id=\"primary\">
+    <div class=\"content\">
+        <h1>
+            <?php echo \$numRegistros;?>
+            <?php echo ( \$numRegistros == 1 ? '' : 's' ) ?>
+            <?php /*if (\$busqueda->condicion() != '') { ?>
+                <span class=\"filter-lab\">Contenido filtrado</span>
+            <?php }*/ ?>
+        </h1>
+        <div id=\"options-bar\">
+            <?php render_partial('index_opciones'); ?>
+            <?php render_partial('index_search') ?>
+        </div>
+        <?php render_partial('index_paginador'); ?>
+        <br />
+        <?php if( \$numRegistros > 0){ ?>
+                <?php render_partial('index_tabla') ?>
+        <?php } else { ?>
+                <?php render_partial('index_vacio') ?>
+        <?php } ?>
+        <?php render_partial('index_paginador'); ?>
+    </div>
+</div>" > $PWD/views/$controlador/index.phtml

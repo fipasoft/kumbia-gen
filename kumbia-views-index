@@ -55,3 +55,22 @@ echo "<div id=\"options\">
         <img src=\"<?php echo \$path?>public/img/system/nuevo.png\" alt=\"Nuevo\"/>
     </a>
 </div>" > $PWD/views/$controlador/_index_opciones.phtml
+
+touch $PWD/views/$controlador/_index_search.phtml
+chmod 0770 $PWD/views/$controlador/_index_search.phtml
+echo "<div id=\"options\">
+    <div id=\"search\" <?php /*if(\$busqueda->condicion() == ''){ ?> style=\"display:none\" <?php }*/ ?>>
+        <form action=\"<?php echo \$path . \$controladorOriginal ?>/index/\" method=\"post\" id=\"frm_search\">
+        <fieldset>
+            <div>
+                <?php /*
+                <label for=\"solicitud_clave\">Clave</label>
+                <input type=\"text\" name=\"${controlador}_clave\" id=\"${controlador}_clave\"
+                    value=\"<?php echo \$busqueda->campo('${controlador}_clave') ?>\"
+                    size=\"16\" maxlength=\"16\"/>
+                */ ?>
+            </div>
+        </fieldset>
+        </form>
+    </div>
+</div>" > $PWD/views/$controlador/_index_search.phtml

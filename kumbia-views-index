@@ -42,3 +42,16 @@ echo "<div id=\"primary\">
         <?php render_partial('index_paginador'); ?>
     </div>
 </div>" > $PWD/views/$controlador/index.phtml
+
+touch $PWD/views/$controlador/_index_opciones.phtml
+chmod 0770 $PWD/views/$controlador/_index_opciones.phtml
+echo "<div id=\"options\">
+    <a href=\"#\" id=\"aSearch\" title=\"Buscar\">
+        Buscar
+        <img src=\"<?php echo \$path; ?>public/img/system/buscar.png\" alt=\"Buscar\"/>
+    </a> /
+    <a href=\"<?php echo \$path; ?>$controlador/capturar\" title=\"Nuevo\">
+        Nuevo
+        <img src=\"<?php echo \$path?>public/img/system/nuevo.png\" alt=\"Nuevo\"/>
+    </a>
+</div>" > $PWD/views/$controlador/_index_opciones.phtml

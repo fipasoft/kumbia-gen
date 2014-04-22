@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Valida parametros
+if [ -z $1 ]
+then
+    echo 'Error: No se especifico el nombre del controlador';
+    exit 1;
+fi
+
+controlador="$(tr '[:lower:]' '[:upper:]' <<< ${1:0:1})${1:1}"
+
+touch $PWD/controllers/$1_controller.php
+chmod 0770 $PWD/controllers/$1_controller.php
+echo "<?php
+/**
+ * $controlador
+ *
+ * @package    Controladores
+ * @author     mimeks <mimex@fipasoft.com.mx>
+ * @copyright  `date +%Y` FiPa Software (contacto at fipasoft.com.mx)
+ * @license    http://www.gnu.org/licenses/gpl.html  GNU General Public License (GPL)
+ *
+ */
+
+require_once 'controllers/$1_controllerBase.php';
+
+class ${controlador}Controller extends $1ControllerBase
+{
+    public \$template='system';
+
+    public function index(\$pag = '')
+    {
+        try {
+            \$this->$1Index(\$pag);
+        } catch (Exception \$e) {
+            \$this->logAndRouteToErrorPage(\$e);
+        }
+    }
+}" > $PWD/controllers/$1_controller.php
+
+touch $PWD/controllers/$1_controllerBase.php
+chmod 0770 $PWD/controllers/$1_controllerBase.php
+echo "<?php
+/**
+ * ${controlador}Base
+ *
+ * @package    Controladores
+ * @author     FiPa Software <contacto@fipasoft.com.mx>
+ * @copyright  `date +%Y` FiPa Software (contacto at fipasoft.com.mx)
+ * @license    http://www.gnu.org/licenses/gpl.html  GNU General Public License (GPL)
+ *
+ */
+
+class ${controlador}ControllerBase extends ApplicationControllerOverloaded
+{
+    public function $1Index(\$pag='')
+    {
+        \$this->loadConfig();
+        \$this->cargarVariablesDeEntorno();
+    }
+}" > $PWD/controllers/$1_controllerBase.php

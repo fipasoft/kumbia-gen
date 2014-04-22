@@ -85,7 +85,6 @@ echo "<div class=\"pages\">
             <?php echo \$boton->etiqueta() ?>
         </a>
     <?php }*/ ?>
-</div>
 </div>" > $PWD/views/$controlador/_index_paginador.phtml
 
 touch $PWD/views/$controlador/_index_vacio.phtml

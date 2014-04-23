@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Valida parametros
+if [ -z $1 ]
+then
+    echo 'Error: No se especifico el nombre del modelo';
+    exit 1;
+fi
+
+modelo=$1
+modeloUpper="$(tr '[:lower:]' '[:upper:]' <<< ${1:0:1})${1:1}"
+
+touch $PWD/models/$modelo.php
+chmod 0770 $PWD/models/$modelo.php
+echo "<?php
+/**
+ * $modeloUpper
+ *
+ * @package    Modelos
+ * @author     FiPa Software
+ * @copyright  `date +%Y` FiPa Software (contacto at fipasoft.com.mx)
+ * @license    http://www.gnu.org/licenses/gpl.html GNU General Public License (GPL)
+ *
+ */
+
+require_once 'forms/db/active_recordOverloaded.php';
+
+class ${modeloUpper} extends  ActiveRecordOverLoaded
+{
+}" > $PWD/models/$modelo.php

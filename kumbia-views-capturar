@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Valida parametros
+if [ -z $1 ]
+then
+    echo 'Especifique controlador'
+    exit 1;
+fi
+
+# Inicializa
+controlador=$1
+
+# Crea el directorio
+if [ ! -d $PWD/views/$controlador ]
+then
+    mkdir -p $PWD/views/$controlador;
+fi
+
+touch $PWD/views/$controlador/capturar.phtml
+chmod 0770 $PWD/views/$controlador/capturar.phtml
+echo "<div id=\"primary\">
+<div class=\"content\">
+<h1>Capturar</h1>
+    <div id=\"options-bar\">
+        <div id=\"options\">
+            <a href=\"<?php echo \$path . \$controladorOriginal ?>\">Volver
+                <img src=\"<?php echo \$path?>public/img/system/volver.png\"
+                     alt=\"volver\"/>
+            </a>
+        </div>
+    </div>
+    <form action=\"<?php echo \$path . \$controladorOriginal ?>/crear\"
+          id=\"frm_capturar\" method=\"post\">
+        <fieldset>
+        </fieldset>
+        <div id=\"botones\">
+            <input type=\"button\" id=\"cancelar\" value=\"Cancelar\" />
+            <input type=\"button\" id=\"crear\" value=\"Crear\" />
+        </div>
+    </form>
+</div>
+</div>" > $PWD/views/$controlador/capturar.phtml

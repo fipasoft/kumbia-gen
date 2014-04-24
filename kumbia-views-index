@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Valida parametros
+if [ -z $1 ]
+then
+    echo 'Especifique controlador'
+    exit 1;
+fi
+
+# Inicializa
+controlador=$1
+vista=`echo $1 | cut -d "/" -f 2`;
+
+# Crea el directorio
+if [ ! -d $PWD/views/$controlador ]
+then
+    mkdir -p $PWD/views/$controlador;
+fi
+
+touch $PWD/views/$controlador/index.phtml
+chmod 0770 $PWD/views/$controlador/index.phtml
+echo "<div id=\"primary\">
+    <div class=\"content\">
+        <h1>
+            <?php echo \$numRegistros;?>
+            <?php echo ( \$numRegistros == 1 ? '' : 's' ) ?>
+            <?php /*if (\$busqueda->condicion() != '') { ?>
+                <span class=\"filter-lab\">Contenido filtrado</span>
+            <?php }*/ ?>
+        </h1>
+        <div id=\"options-bar\">
+            <?php render_partial('index_opciones'); ?>
+            <?php render_partial('index_search') ?>
+        </div>
+        <?php render_partial('index_paginador'); ?>
+        <br />
+        <?php if( \$numRegistros > 0){ ?>
+                <?php render_partial('index_tabla') ?>
+        <?php } else { ?>
+                <?php render_partial('index_vacio') ?>
+        <?php } ?>
+        <?php render_partial('index_paginador'); ?>
+    </div>
+</div>" > $PWD/views/$controlador/index.phtml
+
+touch $PWD/views/$controlador/_index_opciones.phtml
+chmod 0770 $PWD/views/$controlador/_index_opciones.phtml
+echo "<div id=\"options\">
+    <a href=\"#\" id=\"aSearch\" title=\"Buscar\">
+        Buscar
+        <img src=\"<?php echo \$path; ?>public/img/system/buscar.png\" alt=\"Buscar\"/>
+    </a> /
+    <a href=\"<?php echo \$path; ?>$controlador/capturar\" title=\"Nuevo\">
+        Nuevo
+        <img src=\"<?php echo \$path?>public/img/system/nuevo.png\" alt=\"Nuevo\"/>
+    </a>
+</div>" > $PWD/views/$controlador/_index_opciones.phtml
+
+touch $PWD/views/$controlador/_index_search.phtml
+chmod 0770 $PWD/views/$controlador/_index_search.phtml
+echo "<div id=\"options\">
+    <div id=\"search\" <?php /*if(\$busqueda->condicion() == ''){ ?> style=\"display:none\" <?php }*/ ?>>
+        <form action=\"<?php echo \$path . \$controladorOriginal ?>/index/\" method=\"post\" id=\"frm_search\">
+        <fieldset>
+            <div>
+                <?php /*
+                <label for=\"solicitud_clave\">Clave</label>
+                <input type=\"text\" name=\"${controlador}_clave\" id=\"${controlador}_clave\"
+                    value=\"<?php echo \$busqueda->campo('${controlador}_clave') ?>\"
+                    size=\"16\" maxlength=\"16\"/>
+                */ ?>
+            </div>
+        </fieldset>
+        </form>
+    </div>
+</div>" > $PWD/views/$controlador/_index_search.phtml
+
+touch $PWD/views/$controlador/_index_paginador.phtml
+chmod 0770 $PWD/views/$controlador/_index_paginador.phtml
+echo "<div class=\"pages\">
+    <?php /*foreach( \$paginador->botones() as \$boton ){ ?>
+         <a  href=\"<?php echo \$path . \$boton->url() ?>\"
+            title=\"Ir a la p&aacute;gina <?php echo \$boton->titulo() ?>\"
+            class=\"<?php echo \$boton->estilo() ?>\">
+            <?php echo \$boton->etiqueta() ?>
+        </a>
+    <?php }*/ ?>
+</div>" > $PWD/views/$controlador/_index_paginador.phtml
+
+touch $PWD/views/$controlador/_index_vacio.phtml
+chmod 0770 $PWD/views/$controlador/_index_vacio.phtml
+echo "<div class=\"info\">
+    <br />
+    No hay registros que mostrar
+</div>" > $PWD/views/$controlador/_index_vacio.phtml

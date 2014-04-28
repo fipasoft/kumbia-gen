@@ -1,0 +1,26 @@
+#!/bin/bash
+
+# Valida parametros
+if [ -z $1 ]
+then
+    echo 'Error: No se especifico el nombre del controlador.vista';
+    exit 1;
+fi
+
+controladorVista=$1
+
+touch $PWD/public/javascript/view/$controladorVista.js
+chmod 0770 $PWD/public/javascript/view/$controladorVista.js
+echo "/**
+* $controladorVista
+*
+* @package    javascript.view
+* @author     FiPa Software
+* @copyright  `date +%Y` FiPa Software (contacto at fipasoft.com.mx)
+* @license    http://www.gnu.org/licenses/gpl.html GNU General Public License (GPL)
+*
+*/
+
+document.observe("dom:loaded", function(){
+
+});" > $PWD/public/javascript/view/${controladorVista}.js
